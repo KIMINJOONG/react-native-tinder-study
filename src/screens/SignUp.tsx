@@ -5,6 +5,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 interface ITextInputStyleProps {
   platform: string;
@@ -12,6 +13,10 @@ interface ITextInputStyleProps {
 
 interface ITextFooterProps {
   marginTop: string;
+}
+
+interface IProps {
+  navigation: StackNavigationProp<any, 'Login'>;
 }
 
 const LoginContainer = styled.View`
@@ -99,7 +104,7 @@ const SignUpTouchableOpacity = styled.TouchableOpacity`
   margin-top: 15px;
 `;
 
-const SignUp = ({navigation}: any) => {
+const SignUp = ({navigation}: IProps) => {
   const [data, setData] = useState({
     email: '',
     password: '',

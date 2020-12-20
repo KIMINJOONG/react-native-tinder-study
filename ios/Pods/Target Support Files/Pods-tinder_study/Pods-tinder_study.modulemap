@@ -1,0 +1,6 @@
+module Pods_tinder_study {
+  umbrella header "Pods-tinder_study-umbrella.h"
+
+  export *
+  module * { export * }
+}

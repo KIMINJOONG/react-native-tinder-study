@@ -6,14 +6,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RouteProp} from '@react-navigation/native';
+import TextInput from '../components/atoms/TextInput';
+import ViewContainer from '../components/atoms/View'
+import { useDispatch } from "react-redux";
+import { loginAction } from "../actions/user/action";
 
 interface IProps {
   navigation: StackNavigationProp<any, 'Login'>;
-}
-
-interface ITextInputStyleProps {
-  platform: string;
 }
 
 interface ITextFooterProps {
@@ -61,14 +60,6 @@ const Action = styled.View`
   padding-bottom: 5px;
 `;
 
-const TextInput = styled.TextInput`
-  flex: 1;
-  margin-top: ${(props: ITextInputStyleProps) =>
-    props.platform === 'ios' ? 0 : -12};
-  color: #05375a;
-  padding-left: 10px;
-`;
-
 const ButtonView = styled.View`
   align-items: center;
   margin-top: 50px;
@@ -106,8 +97,9 @@ const SignUpTouchableOpacity = styled.TouchableOpacity`
 `;
 
 const Login = ({navigation}: IProps) => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
-    email: '',
+    id: '',
     password: '',
     checkTextInputChange: false,
     secureTextEntry: true,
@@ -118,13 +110,13 @@ const Login = ({navigation}: IProps) => {
       if (value.length !== 0) {
         setData({
           ...data,
-          email: value,
+          id: value,
           checkTextInputChange: true,
         });
       } else {
         setData({
           ...data,
-          email: value,
+          id: value,
           checkTextInputChange: false,
         });
       }
@@ -149,8 +141,16 @@ const Login = ({navigation}: IProps) => {
     });
   }, [data]);
 
+  const onClickLogin = useCallback(() => {
+    const dataForm = {
+      id: data.id,
+      password: data.password
+    }
+    dispatch(loginAction(dataForm));
+  }, [data]);
+
   return (
-    <LoginContainer>
+    <ViewContainer flex={1} backgroundColor={'#fd297b'}>
       <StatusBar backgroundColor={'#009387'} barStyle={'light-content'} />
       <Header colors={['#FF655B', '#FF5864', '#FD297B']}>
         <TextHeader>로그인</TextHeader>
@@ -163,7 +163,14 @@ const Login = ({navigation}: IProps) => {
             placeholder={'아이디를 입력해주세요.'}
             platform={Platform.OS}
             autoCapitalize={'none'}
-            onChangeText={(value) => textInputChange(value)}
+            onChangeText={(value:string) => textInputChange(value)}
+            flex={1}
+            marginTopAndroid={'-12px'}
+            marginTopIOS={'0px'}
+            color={'#05375a'}
+            paddingLeft={'10px'}
+            secureTextEntry={false}
+            value={data.id}
           />
           {data.checkTextInputChange ? (
             <Animatable.View animation={'bounceIn'}>
@@ -179,7 +186,13 @@ const Login = ({navigation}: IProps) => {
             secureTextEntry={data.secureTextEntry ? true : false}
             platform={Platform.OS}
             autoCapitalize={'none'}
-            onChangeText={(value) => handlePasswordChange(value)}
+            onChangeText={(value:string) => handlePasswordChange(value)}
+            flex={1}
+            marginTopAndroid={'-12px'}
+            marginTopIOS={'0px'}
+            color={'#05375a'}
+            paddingLeft={'10px'}
+            value={data.password}
           />
           <TouchableOpacity onPress={updateSecureTextEntry}>
             {data.secureTextEntry ? (
@@ -192,7 +205,7 @@ const Login = ({navigation}: IProps) => {
 
         <ButtonView>
           <LogInLinearGradient colors={['#FF655B', '#FF5864', '#FD297B']}>
-            <LoginText>로그인</LoginText>
+            <LoginText onPress={onClickLogin}>로그인</LoginText>
           </LogInLinearGradient>
           <SignUpTouchableOpacity>
             <SignUpText onPress={() => navigation.navigate('SignUp')}>
@@ -201,7 +214,7 @@ const Login = ({navigation}: IProps) => {
           </SignUpTouchableOpacity>
         </ButtonView>
       </Footer>
-    </LoginContainer>
+    </ViewContainer>
   );
 };
 

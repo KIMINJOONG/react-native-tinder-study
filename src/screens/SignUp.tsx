@@ -1,15 +1,15 @@
-import React, {useCallback, useState} from 'react';
-import {Platform, TouchableOpacity, StatusBar} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Platform, TouchableOpacity, StatusBar, Alert} from 'react-native';
 import styled from 'styled-components/native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {StackNavigationProp} from '@react-navigation/stack';
-
-interface ITextInputStyleProps {
-  platform: string;
-}
+import TextInput from '../components/atoms/TextInput';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAction, userJoinAction} from '../actions/user/action';
+import {RootState} from '../reducers';
 
 interface ITextFooterProps {
   marginTop: string;
@@ -60,14 +60,6 @@ const Action = styled.View`
   padding-bottom: 5px;
 `;
 
-const TextInput = styled.TextInput`
-  flex: 1;
-  margin-top: ${(props: ITextInputStyleProps) =>
-    props.platform === 'ios' ? 0 : -12};
-  color: #05375a;
-  padding-left: 10px;
-`;
-
 const ButtonView = styled.View`
   align-items: center;
   margin-top: 50px;
@@ -105,8 +97,10 @@ const SignUpTouchableOpacity = styled.TouchableOpacity`
 `;
 
 const SignUp = ({navigation}: IProps) => {
+  const dispatch = useDispatch();
+  const {joinDone, join} = useSelector((state: RootState) => state.user);
   const [data, setData] = useState({
-    email: '',
+    id: '',
     password: '',
     checkTextInputChange: false,
     secureTextEntry: true,
@@ -119,13 +113,13 @@ const SignUp = ({navigation}: IProps) => {
       if (value.length !== 0) {
         setData({
           ...data,
-          email: value,
+          id: value,
           checkTextInputChange: true,
         });
       } else {
         setData({
           ...data,
-          email: value,
+          id: value,
           checkTextInputChange: false,
         });
       }
@@ -167,6 +161,20 @@ const SignUp = ({navigation}: IProps) => {
     });
   }, [data]);
 
+  const onClickJoin = useCallback(() => {
+    const dataForm = {
+      id: data.id,
+      password: data.password,
+    };
+    dispatch(userJoinAction(dataForm));
+  }, [data]);
+
+  useEffect(() => {
+    if (joinDone) {
+      Alert.alert(join.message);
+    }
+  }, [joinDone]);
+
   return (
     <LoginContainer>
       <StatusBar backgroundColor={'#009387'} barStyle={'light-content'} />
@@ -181,7 +189,14 @@ const SignUp = ({navigation}: IProps) => {
             placeholder={'아이디를 입력해주세요.'}
             platform={Platform.OS}
             autoCapitalize={'none'}
-            onChangeText={(value) => textInputChange(value)}
+            onChangeText={(value: string) => textInputChange(value)}
+            flex={1}
+            marginTopAndroid={'-12px'}
+            marginTopIOS={'0px'}
+            color={'#05375a'}
+            paddingLeft={'10px'}
+            secureTextEntry={false}
+            value={data.id}
           />
           {data.checkTextInputChange ? (
             <Animatable.View animation={'bounceIn'}>
@@ -197,7 +212,13 @@ const SignUp = ({navigation}: IProps) => {
             secureTextEntry={data.secureTextEntry ? true : false}
             platform={Platform.OS}
             autoCapitalize={'none'}
-            onChangeText={(value) => handlePasswordChange(value)}
+            onChangeText={(value: string) => handlePasswordChange(value)}
+            flex={1}
+            marginTopAndroid={'-12px'}
+            marginTopIOS={'0px'}
+            color={'#05375a'}
+            paddingLeft={'10px'}
+            value={data.password}
           />
           <TouchableOpacity onPress={updateSecureTextEntry}>
             {data.secureTextEntry ? (
@@ -216,7 +237,13 @@ const SignUp = ({navigation}: IProps) => {
             secureTextEntry={data.confirmSecureTextEntry ? true : false}
             platform={Platform.OS}
             autoCapitalize={'none'}
-            onChangeText={(value) => handleConfirmPasswordChange(value)}
+            onChangeText={(value: string) => handleConfirmPasswordChange(value)}
+            flex={1}
+            marginTopAndroid={'-12px'}
+            marginTopIOS={'0px'}
+            color={'#05375a'}
+            paddingLeft={'10px'}
+            value={data.confirmPassword}
           />
           <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
             {data.confirmSecureTextEntry ? (
@@ -229,7 +256,7 @@ const SignUp = ({navigation}: IProps) => {
 
         <ButtonView>
           <LogInLinearGradient colors={['#FF655B', '#FF5864', '#FD297B']}>
-            <LoginText>회원가입</LoginText>
+            <LoginText onPress={onClickJoin}>회원가입</LoginText>
           </LogInLinearGradient>
           <SignUpTouchableOpacity onPress={() => navigation.goBack()}>
             <SignUpText>로그인</SignUpText>

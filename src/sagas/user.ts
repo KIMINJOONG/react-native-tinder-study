@@ -20,21 +20,29 @@ function loginUserAPI(data: any) {
 
 function* loginUser(action: ILOG_IN_REQUEST) {
   try {
-    const user = users.find((user: any) => user.id === action.data.id);
+    const user = users.find(
+      (user: any) =>
+        user.id === action.data.id && user.password === action.data.password,
+    );
     yield delay(500);
     // const result = yield call(joinUserAPI, action.data);
     const result: any = {};
     if (user) {
-      result.data.message = '로그인 되었습니다.';
-      result.data.user = user;
+      result.data = {
+        message: '로그인 되었습니다.',
+        user,
+      };
     } else {
-      result.data.message = '일치하는 정보가 없습니다.';
+      result.data = {
+        message: '일치하는 정보가 없습니다.',
+      };
     }
     yield put({
       type: LOG_IN_SUCCESS,
       data: result.data,
     });
   } catch (e) {
+    console.log(e);
     yield put({
       type: LOG_IN_FAILURE,
       error: e.response.data,

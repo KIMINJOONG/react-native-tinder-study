@@ -1,5 +1,5 @@
-import React, {useCallback, useState} from 'react';
-import {Platform, TouchableOpacity, StatusBar} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Platform, TouchableOpacity, StatusBar, Alert} from 'react-native';
 import styled from 'styled-components/native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -7,9 +7,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {StackNavigationProp} from '@react-navigation/stack';
 import TextInput from '../components/atoms/TextInput';
-import ViewContainer from '../components/atoms/View'
-import { useDispatch } from "react-redux";
-import { loginAction } from "../actions/user/action";
+import ViewContainer from '../components/atoms/View';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAction} from '../actions/user/action';
+import {RootState} from '../reducers';
 
 interface IProps {
   navigation: StackNavigationProp<any, 'Login'>;
@@ -98,6 +99,7 @@ const SignUpTouchableOpacity = styled.TouchableOpacity`
 
 const Login = ({navigation}: IProps) => {
   const dispatch = useDispatch();
+  const {logInDone, logIn} = useSelector((state: RootState) => state.user);
   const [data, setData] = useState({
     id: '',
     password: '',
@@ -144,10 +146,16 @@ const Login = ({navigation}: IProps) => {
   const onClickLogin = useCallback(() => {
     const dataForm = {
       id: data.id,
-      password: data.password
-    }
+      password: data.password,
+    };
     dispatch(loginAction(dataForm));
   }, [data]);
+
+  useEffect(() => {
+    if (logInDone) {
+      Alert.alert(logIn.message);
+    }
+  }, [logInDone]);
 
   return (
     <ViewContainer flex={1} backgroundColor={'#fd297b'}>
@@ -163,7 +171,7 @@ const Login = ({navigation}: IProps) => {
             placeholder={'아이디를 입력해주세요.'}
             platform={Platform.OS}
             autoCapitalize={'none'}
-            onChangeText={(value:string) => textInputChange(value)}
+            onChangeText={(value: string) => textInputChange(value)}
             flex={1}
             marginTopAndroid={'-12px'}
             marginTopIOS={'0px'}
@@ -186,7 +194,7 @@ const Login = ({navigation}: IProps) => {
             secureTextEntry={data.secureTextEntry ? true : false}
             platform={Platform.OS}
             autoCapitalize={'none'}
-            onChangeText={(value:string) => handlePasswordChange(value)}
+            onChangeText={(value: string) => handlePasswordChange(value)}
             flex={1}
             marginTopAndroid={'-12px'}
             marginTopIOS={'0px'}

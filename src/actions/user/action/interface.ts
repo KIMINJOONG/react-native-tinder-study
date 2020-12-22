@@ -29,7 +29,7 @@ export interface IJOIN_FAILURE {
 export interface ILOG_IN_REQUEST {
   type: typeof LOG_IN_REQUEST;
   data: {
-    id: any;
+    id: string;
     password: string;
   };
 }

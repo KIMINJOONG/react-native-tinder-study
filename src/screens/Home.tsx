@@ -27,8 +27,7 @@ const Home: FunctionComponent = ({navigation}: any) => {
       <View style={styles.textItem}>
         <Text style={styles.text}>
           로그인을 누르시면 이용약관에 동의하는 것으로 간주됩니다. 개인정보
-          취급방침 및 쿠키정책에서 회원 정보 처리 방법을 확인하실 수
-          있습니다.
+          취급방침 및 쿠키정책에서 회원 정보 처리 방법을 확인하실 수 있습니다.
         </Text>
       </View>
       <View style={styles.loinButtonContainer}>

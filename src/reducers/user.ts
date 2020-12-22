@@ -13,6 +13,7 @@ export const initialState = {
   logInLoading: false, // 로그인 시도중
   logInDone: false,
   logInError: null,
+  logIn: null,
   me: null,
   joinLoading: false,
   joinDone: false,
@@ -52,6 +53,7 @@ const reducer = (state = initialState, action: UserActionType) => {
         // jsCookie.set('token', action.data.data.token);
         draft.logInLoading = false;
         draft.logInDone = true;
+        draft.logIn = action.data;
         draft.me = action.data.user;
         break;
       }

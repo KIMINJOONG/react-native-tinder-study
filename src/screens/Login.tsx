@@ -154,6 +154,7 @@ const Login = ({navigation}: IProps) => {
   useEffect(() => {
     if (logInDone) {
       Alert.alert(logIn.message);
+      navigation.navigate('Main');
     }
   }, [logInDone]);
 

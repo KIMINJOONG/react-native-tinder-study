@@ -2,6 +2,9 @@ import {
   JOIN_FAILURE,
   JOIN_REQUEST,
   JOIN_SUCCESS,
+  LOAD_USERS_FAILURE,
+  LOAD_USERS_REQUEST,
+  LOAD_USERS_SUCCESS,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -41,5 +44,20 @@ export interface ILOG_IN_SUCCESS {
 
 export interface ILOG_IN_FAILURE {
   type: typeof LOG_IN_FAILURE;
+  error: any;
+}
+
+export interface ILOAD_USERS_REQUEST {
+  type: typeof LOAD_USERS_REQUEST;
+  query?: string;
+}
+
+export interface ILOAD_USERS_SUCCESS {
+  type: typeof LOAD_USERS_SUCCESS;
+  data: any;
+}
+
+export interface ILOAD_USERS_FAILURE {
+  type: typeof LOAD_USERS_FAILURE;
   error: any;
 }

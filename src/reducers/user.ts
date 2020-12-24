@@ -4,6 +4,9 @@ import {
   JOIN_FAILURE,
   JOIN_REQUEST,
   JOIN_SUCCESS,
+  LOAD_USERS_FAILURE,
+  LOAD_USERS_REQUEST,
+  LOAD_USERS_SUCCESS,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -19,6 +22,10 @@ export const initialState = {
   joinDone: false,
   joinError: null,
   join: null,
+  loadUsersLoading: false,
+  loadUsersDone: false,
+  loadUsersError: null,
+  users: null,
 };
 
 // 동적인 데이터는 함수로 만들어줌 signup.js도 참고할것
@@ -26,6 +33,23 @@ export const initialState = {
 const reducer = (state = initialState, action: UserActionType) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case LOAD_USERS_REQUEST: {
+        draft.loadUsersLoading = true;
+        draft.loadUsersDone = false;
+        draft.loadUsersError = null;
+        break;
+      }
+      case LOAD_USERS_SUCCESS: {
+        draft.loadUsersLoading = false;
+        draft.loadUsersDone = true;
+        draft.users = action.data;
+        break;
+      }
+      case LOAD_USERS_FAILURE: {
+        draft.loadUsersLoading = false;
+        draft.loadUsersError = action.error;
+        break;
+      }
       case JOIN_REQUEST: {
         draft.joinLoading = true;
         draft.joinDone = false;

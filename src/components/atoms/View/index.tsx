@@ -32,6 +32,8 @@ const View = ({
   borderBottomColor,
   paddingBottom,
   alignItems,
+  justifyContent,
+  height,
 }: IProps) => {
   return (
     <ViewContainer
@@ -46,7 +48,9 @@ const View = ({
       borderBottomWidth={borderBottomWidth}
       borderBottomColor={borderBottomColor}
       paddingBottom={paddingBottom}
-      alignItems={alignItems}>
+      alignItems={alignItems}
+      justifyContent={justifyContent}
+      height={height}>
       {children}
     </ViewContainer>
   );

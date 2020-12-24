@@ -1,10 +1,15 @@
 import {all, call, takeLatest, put, fork, delay} from 'redux-saga/effects';
 import {IJOIN_REQUEST, ILOG_IN_REQUEST} from '../actions/user/action/interface';
 import axios from 'axios';
+import faker from 'faker';
+import shortId from 'shortid';
 import {
   JOIN_FAILURE,
   JOIN_REQUEST,
   JOIN_SUCCESS,
+  LOAD_USERS_FAILURE,
+  LOAD_USERS_REQUEST,
+  LOAD_USERS_SUCCESS,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -79,6 +84,47 @@ function* joinUser(action: IJOIN_REQUEST) {
   }
 }
 
+function loadUsersAPI(data: any) {
+  // return axios.post('/users', data, {
+  //   withCredentials: true,
+  // });
+}
+
+function* loadUsers(action: IJOIN_REQUEST) {
+  try {
+    yield delay(500);
+    // const result = yield call(loadUsersAPI, action.data);
+    const generateDummyUser = (number: any) =>
+      Array(number)
+        .fill(null)
+        .map((_, __) => ({
+          id: shortId.generate(),
+          nickname: faker.name.findName(),
+          content: faker.lorem.paragraph(),
+          profile: [
+            {
+              src: faker.image.imageUrl(400, 400, 'people'),
+            },
+          ],
+        }));
+    const result = {
+      data: {
+        users: generateDummyUser(3),
+        message: '가입에 성공하였습니다.',
+      },
+    };
+    yield put({
+      type: LOAD_USERS_SUCCESS,
+      data: result.data,
+    });
+  } catch (e) {
+    yield put({
+      type: LOAD_USERS_FAILURE,
+      error: e.response.data,
+    });
+  }
+}
+
 function* watchJoin() {
   yield takeLatest(JOIN_REQUEST, joinUser);
 }
@@ -87,6 +133,10 @@ function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, loginUser);
 }
 
+function* watchLoadUsers() {
+  yield takeLatest(LOAD_USERS_REQUEST, loadUsers);
+}
+
 export default function* userSaga() {
-  yield all([fork(watchJoin), fork(watchLogIn)]);
+  yield all([fork(watchJoin), fork(watchLogIn), fork(watchLoadUsers)]);
 }

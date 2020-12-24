@@ -17,4 +17,6 @@ export interface IStyle {
   borderBottomColor?: string;
   paddingBottom?: string;
   alignItems?: string;
+  justifyContent?: string;
+  height?:number;
 }

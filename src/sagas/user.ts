@@ -109,7 +109,7 @@ function* loadUsers(action: IJOIN_REQUEST) {
         }));
     const result = {
       data: {
-        users: generateDummyUser(3),
+        users: generateDummyUser(10),
         message: '가입에 성공하였습니다.',
       },
     };

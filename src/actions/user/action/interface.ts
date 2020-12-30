@@ -7,8 +7,8 @@ import {
   LOAD_USERS_SUCCESS,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
-  LOG_IN_SUCCESS,
-} from '../type';
+  LOG_IN_SUCCESS, REMOVE_USER_CARD_REQUEST
+} from "../type";
 
 export interface IJOIN_REQUEST {
   type: typeof JOIN_REQUEST;
@@ -60,4 +60,8 @@ export interface ILOAD_USERS_SUCCESS {
 export interface ILOAD_USERS_FAILURE {
   type: typeof LOAD_USERS_FAILURE;
   error: any;
+}
+
+export interface IREMOVE_USER_CARD_REQUEST {
+  type: typeof REMOVE_USER_CARD_REQUEST;
 }

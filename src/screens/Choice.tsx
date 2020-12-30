@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 // import View from '../components/atoms/View';
-import {
-  View,
-  Dimensions,
-  Image,
-  Text,
-  Animated,
-} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {loadUsersAction} from '../actions/user/action';
+import {loadUsersAction, removeUserCardAction} from '../actions/user/action';
 import {RootState} from '../reducers';
+import Card from './Card';
+import styled from 'styled-components/native';
+import Footer from './Footer';
+import {Animated, PanResponder, PanResponderGestureState} from 'react-native';
+import {ACTION_OFFSET, CARD} from '../utils/constants';
+
+const Container = styled.View`
+  flex: 1;
+  background-color: #fafafa;
+  align-items: center;
+`;
 
 const Choice = () => {
-  const SCREEN_HEIGHT = Dimensions.get('window').height;
-  const SCREEN_WIDTH = Dimensions.get('window').width;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [position, setPosition] = useState(new Animated.ValueXY());
   const dispatch = useDispatch();
   const {loadUsersDone, loadUsersError, users} = useSelector(
     (state: RootState) => state.user,
@@ -24,38 +24,78 @@ const Choice = () => {
     dispatch(loadUsersAction());
   }, []);
 
+  const swipe = useRef(new Animated.ValueXY()).current;
+  const titleSign = useRef(new Animated.Value(1)).current;
+
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderMove: (_, {dx, dy, y0}) => {
+      swipe.setValue({x: dx, y: dy});
+      titleSign.setValue(y0 > CARD.HEIGHT / 2 ? 1 : -1);
+    },
+    onPanResponderRelease: (_, {dx, dy}: PanResponderGestureState) => {
+      const direction = Math.sign(dx);
+      const isActionActive = Math.abs(dx) > ACTION_OFFSET;
+
+      if (isActionActive) {
+        Animated.timing(swipe, {
+          duration: 200,
+          toValue: {
+            x: direction * CARD.OUT_OF_SCREEN,
+            y: dy,
+          },
+          useNativeDriver: true,
+        }).start(removeTopCard);
+      } else {
+        Animated.spring(swipe, {
+          toValue: {
+            x: 0,
+            y: 0,
+          },
+          useNativeDriver: true,
+          friction: 5,
+        }).start();
+      }
+    },
+  });
+
+  const removeTopCard = useCallback(() => {
+    dispatch(removeUserCardAction());
+    swipe.setValue({x: 0, y: 0});
+  }, [swipe]);
+
+  const handleChoice = useCallback(
+    (direction: any) => {
+      Animated.timing(swipe.x, {
+        toValue: direction * CARD.OUT_OF_SCREEN,
+        duration: 400,
+        useNativeDriver: true,
+      }).start(removeTopCard);
+    },
+    [removeTopCard, swipe.x],
+  );
+
   return (
-    <View style={{flex: 1}}>
-      <View style={{height: 20}}></View>
-      <View style={{flex: 1}}>
-        {users &&
-          users.users &&
-          users.users.map((user: any) => (
-            <Animated.View
+    <Container>
+      {users &&
+        users.users.map((user: any, index: number) => {
+          // const isFirst = index === 0;
+          const isFirst = true;
+          const dragHandler = isFirst ? panResponder.panHandlers : {};
+
+          return (
+            <Card
               key={user.id}
-              style={[
-                {transform: position.getTranslateTransform()},
-                {
-                  height: SCREEN_HEIGHT - 120,
-                  width: SCREEN_WIDTH,
-                  padding: 10,
-                },
-              ]}>
-              <Image
-                style={{
-                  flex: 1,
-                  height: null,
-                  width: null,
-                  resizeMode: 'cover',
-                  borderRadius: 20,
-                }}
-                source={{uri: user.profile[0].src}}
-              />
-            </Animated.View>
-          ))}
-      </View>
-      <View style={{height: 20}}></View>
-    </View>
+              user={user}
+              isFirst={isFirst}
+              {...dragHandler}
+              swipe={swipe}
+              titleSign={titleSign}
+            />
+          );
+        })}
+      <Footer handleChoice={handleChoice} />
+    </Container>
   );
 };
 

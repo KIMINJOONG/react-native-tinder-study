@@ -10,6 +10,7 @@ import {
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
+  REMOVE_USER_CARD_REQUEST,
 } from '../actions/user/type';
 
 export const initialState = {
@@ -25,7 +26,7 @@ export const initialState = {
   loadUsersLoading: false,
   loadUsersDone: false,
   loadUsersError: null,
-  users: null,
+  users: null as any,
 };
 
 // 동적인 데이터는 함수로 만들어줌 signup.js도 참고할것
@@ -33,6 +34,10 @@ export const initialState = {
 const reducer = (state = initialState, action: UserActionType) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case REMOVE_USER_CARD_REQUEST: {
+        draft.users.users.slice(1);
+        break;
+      }
       case LOAD_USERS_REQUEST: {
         draft.loadUsersLoading = true;
         draft.loadUsersDone = false;

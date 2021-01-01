@@ -13,7 +13,23 @@ import {
   REMOVE_USER_CARD_REQUEST,
 } from '../actions/user/type';
 
-export const initialState = {
+interface IUserReducer {
+  logInLoading: boolean;
+  logInDone: boolean;
+  logInError: any;
+  logIn: any;
+  me: any;
+  joinLoading: boolean;
+  joinDone: boolean;
+  joinError: any;
+  join: any;
+  loadUsersLoading: boolean;
+  loadUsersDone: boolean;
+  loadUsersError: any;
+  users: any;
+}
+
+export const initialState: IUserReducer = {
   logInLoading: false, // 로그인 시도중
   logInDone: false,
   logInError: null,
@@ -35,7 +51,7 @@ const reducer = (state = initialState, action: UserActionType) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case REMOVE_USER_CARD_REQUEST: {
-        draft.users.users.slice(1);
+        draft.users.users = draft.users.users.slice(1);
         break;
       }
       case LOAD_USERS_REQUEST: {

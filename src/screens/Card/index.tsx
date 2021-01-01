@@ -7,20 +7,20 @@ import LikeOrNot from '../LikeOrNot';
 
 const Container = styled(Animated.View)`
   position: absolute;
-  top: 45;
+  top: 45px;
 `;
 
 const Img = styled.Image`
-  width: ${CARD.WIDTH};
-  height: ${CARD.HEIGHT};
-  border-radius: ${CARD.BORDER_RADIUS};
+  width: ${CARD.WIDTH}px;
+  height: ${CARD.HEIGHT}px;
+  border-radius: ${CARD.BORDER_RADIUS}px;
 `;
 
 const Name = styled.Text`
   position: absolute;
-  bottom: 22;
-  left: 22;
-  font-size: 36;
+  bottom: 22px;
+  left: 22px;
+  font-size: 36px;
   font-weight: bold;
   color: #fff;
 `;
@@ -30,25 +30,25 @@ const Gradient = styled(LinearGradient)`
   bottom: 0;
   left: 0;
   right: 0;
-  height: 160;
-  border-radius: ${CARD.BORDER_RADIUS};
+  height: 160px;
+  border-radius: ${CARD.BORDER_RADIUS}px;
 `;
 
 const LikeContainer = styled(Animated.View)`
   position: absolute;
-  top: 100;
-  left: 45;
+  top: 100px;
+  left: 45px;
   transform: rotate(-30deg);
 `;
 
 const NopeContainer = styled(Animated.View)`
   position: absolute;
-  top: 100;
-  right: 45;
+  top: 100px;
+  right: 45px;
   transform: rotate(30deg);
 `;
 
-const Card = ({user, isFirst, swipe, titleSign,...rest }: any) => {
+const Card = ({user, isFirst, swipe, titleSign, ...rest}: any) => {
   const rotate: any = Animated.multiply(swipe.x, titleSign).interpolate({
     inputRange: [-ACTION_OFFSET, 0, ACTION_OFFSET],
     outputRange: ['8deg', '0deg', '-8deg'],

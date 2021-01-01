@@ -4,11 +4,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styled, {css} from 'styled-components/native';
 
 const Container: any = styled(Animated.View)`
-  width: 70;
-  height: 70;
+  width: 70px;
+  height: 70px;
   background-color: #fff;
   elevation: 5;
-  border-radius: 40;
+  border-radius: 40px;
   justify-content: center;
   align-items: center;
   transform: scale(0.8);

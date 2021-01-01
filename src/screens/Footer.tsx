@@ -7,8 +7,8 @@ import styled from 'styled-components/native';
 const Container = styled.View`
   flex-direction: row;
   position: absolute;
-  bottom: 15;
-  width: 170;
+  bottom: 15px;
+  width: 170px;
   align-items: center;
   justify-content: space-between;
   z-index: -1;

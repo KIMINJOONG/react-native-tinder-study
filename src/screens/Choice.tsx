@@ -6,7 +6,12 @@ import {RootState} from '../reducers';
 import Card from './Card';
 import styled from 'styled-components/native';
 import Footer from './Footer';
-import {Animated, PanResponder, PanResponderGestureState} from 'react-native';
+import {
+  Animated,
+  PanResponder,
+  PanResponderGestureState,
+  Text,
+} from 'react-native';
 import {ACTION_OFFSET, CARD} from '../utils/constants';
 
 const Container = styled.View`
@@ -75,26 +80,31 @@ const Choice = () => {
     [removeTopCard, swipe.x],
   );
 
-  return (
+  return loadUsersDone && users && users.users.length > 0 ? (
     <Container>
-      {users &&
-        users.users.map((user: any, index: number) => {
-          // const isFirst = index === 0;
-          const isFirst = true;
-          const dragHandler = isFirst ? panResponder.panHandlers : {};
+      {users.users
+        .map((user: any, index: number) => {
+          const isFirst = index === 0;
+          const panHandlers = isFirst ? panResponder.panHandlers : {};
 
           return (
             <Card
+              index={index}
               key={user.id}
               user={user}
               isFirst={isFirst}
-              {...dragHandler}
               swipe={swipe}
               titleSign={titleSign}
+              {...panHandlers}
             />
           );
-        })}
+        })
+        .reverse()}
       <Footer handleChoice={handleChoice} />
+    </Container>
+  ) : (
+    <Container style={{justifyContent: 'center', alignItems: 'center'}}>
+      <Text>유저끝</Text>
     </Container>
   );
 };

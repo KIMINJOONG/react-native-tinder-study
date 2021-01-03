@@ -4,8 +4,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import TinderLogo from '../../assets/images/logo/Tinder_Logo.svg';
 import Button from '../components/atoms/Button';
 import Text from '../components/atoms/Text';
+import {StackScreenProps} from '@react-navigation/stack';
 
-const Home: FunctionComponent = ({navigation}: any) => {
+const Home: FunctionComponent<StackScreenProps<any, any>> = ({navigation}) => {
   const googleLogin = useCallback((event: GestureResponderEvent) => {
     console.log('google', event);
   }, []);

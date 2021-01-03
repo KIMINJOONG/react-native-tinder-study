@@ -1,8 +1,9 @@
 import React, {FunctionComponent, useCallback} from 'react';
-import {View, StyleSheet, Text, GestureResponderEvent} from 'react-native';
+import {View, StyleSheet, GestureResponderEvent} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import TinderLogo from '../../assets/images/logo/Tinder_Logo.svg';
 import Button from '../components/atoms/Button';
+import Text from '../components/atoms/Text';
 
 const Home: FunctionComponent = ({navigation}: any) => {
   const googleLogin = useCallback((event: GestureResponderEvent) => {
@@ -25,7 +26,7 @@ const Home: FunctionComponent = ({navigation}: any) => {
         <TinderLogo width={'50%'} height={'55px'} />
       </View>
       <View style={styles.textItem}>
-        <Text style={styles.text}>
+        <Text textAlign={'center'} color={'white'}>
           로그인을 누르시면 이용약관에 동의하는 것으로 간주됩니다. 개인정보
           취급방침 및 쿠키정책에서 회원 정보 처리 방법을 확인하실 수 있습니다.
         </Text>
@@ -73,10 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginBottom: 15,
-  },
-  text: {
-    textAlign: 'center',
-    color: 'white',
   },
   loinButtonContainer: {
     width: '100%',

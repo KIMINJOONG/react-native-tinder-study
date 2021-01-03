@@ -3,19 +3,29 @@ import styled from 'styled-components/native';
 import {IProps, IStyle} from './type';
 
 const ViewContainer = styled.View`
-  flex: ${(props: IStyle) => (props.flex === undefined ? 1 : props.flex)};
-  flex-direction: ${(props: IStyle) =>
-    props.flexDirection === undefined ? 'column' : props.flexDirection};
-  background-color: ${(props: IStyle) =>
-    props.backgroundColor === undefined ? '#fff' : props.backgroundColor};
-  margin-top: ${(props: IStyle) =>
-    props.marginTop === undefined ? '0px' : props.marginTop};
-  border-bottom-width: ${(props: IStyle) =>
-    props.borderBottomWidth === undefined ? '1px' : props.borderBottomWidth};
-  border-bottom-color: ${(props: IStyle) =>
-    props.borderBottomColor === undefined ? '#fff' : props.borderBottomColor};
-  padding-bottom: ${(props: IStyle) =>
-    props.paddingBottom === undefined ? '0px' : props.paddingBottom};
+  ${(props: IStyle) => props.flex !== undefined && `flex: ${props.flex}`};
+  ${(props: IStyle) =>
+    props.flexDirection !== undefined &&
+    `flex-direction: ${props.flexDirection}`};
+  ${(props: IStyle) =>
+    props.backgroundColor !== undefined &&
+    `background-color: ${props.backgroundColor}`};
+  ${(props: IStyle) =>
+    props.marginTop !== undefined && `margin-top: ${props.marginTop}`};
+  ${(props: IStyle) =>
+    props.borderBottomWidth !== undefined &&
+    `border-bottom-width: ${props.borderBottomWidth}`};
+  ${(props: IStyle) =>
+    props.borderBottomColor !== undefined &&
+    `border-bottom-color: ${props.borderBottomColor}`};
+  ${(props: IStyle) =>
+    props.paddingBottom !== undefined &&
+    `padding-bottom: ${props.paddingBottom}`};
+  ${(props: IStyle) =>
+    props.justifyContent !== undefined &&
+    `justify-content: ${props.justifyContent}`};
+  ${(props: IStyle) =>
+    props.alignItems !== undefined && `align-items: ${props.alignItems}`};
 `;
 
 const View = ({
@@ -34,6 +44,7 @@ const View = ({
   alignItems,
   justifyContent,
   height,
+  width,
 }: IProps) => {
   return (
     <ViewContainer
@@ -50,7 +61,8 @@ const View = ({
       paddingBottom={paddingBottom}
       alignItems={alignItems}
       justifyContent={justifyContent}
-      height={height}>
+      height={height}
+      width={width}>
       {children}
     </ViewContainer>
   );

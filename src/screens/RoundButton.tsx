@@ -1,7 +1,7 @@
 import React, {useCallback, useRef} from 'react';
 import {Animated, TouchableWithoutFeedback, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styled, {css} from 'styled-components/native';
+import styled from 'styled-components/native';
 
 const Container: any = styled(Animated.View)`
   width: 70px;

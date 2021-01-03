@@ -7,23 +7,15 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {StackNavigationProp} from '@react-navigation/stack';
 import TextInput from '../components/atoms/TextInput';
-import ViewContainer from '../components/atoms/View';
+import View from '../components/atoms/View';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginAction} from '../actions/user/action';
 import {RootState} from '../reducers';
+import Text from '../components/atoms/Text';
 
 interface IProps {
   navigation: StackNavigationProp<any, 'Login'>;
 }
-
-interface ITextFooterProps {
-  marginTop: string;
-}
-
-const LoginContainer = styled.View`
-  flex: 1;
-  background-color: #fd297b;
-`;
 
 const Header = styled(LinearGradient)`
   flex: 1;
@@ -41,49 +33,12 @@ const Footer = styled(Animatable.View)`
   padding-vertical: 30px;
 `;
 
-const TextHeader = styled.Text`
-  color: #fff;
-  font-weight: bold;
-  font-size: 30px;
-`;
-
-const TextFooter = styled.Text`
-  color: #05375a;
-  font-size: 18px;
-  margin-top: ${(props: ITextFooterProps) => props.marginTop};
-`;
-
-const Action = styled.View`
-  flex-direction: row;
-  margin-top: 10px;
-  border-bottom-width: 1px;
-  border-bottom-color: #f2f2f2;
-  padding-bottom: 5px;
-`;
-
-const ButtonView = styled.View`
-  align-items: center;
-  margin-top: 50px;
-`;
-
 const LogInLinearGradient = styled(LinearGradient)`
   width: 100%;
   height: 50px;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-`;
-
-const LoginText = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-`;
-
-const SignUpText = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-  color: #ff655b;
 `;
 
 const SignUpTouchableOpacity = styled.TouchableOpacity`
@@ -159,21 +114,29 @@ const Login = ({navigation}: IProps) => {
   }, [logInDone]);
 
   return (
-    <ViewContainer flex={1} backgroundColor={'#fd297b'}>
+    <View flex={1} backgroundColor={'#fd297b'}>
       <StatusBar backgroundColor={'#009387'} barStyle={'light-content'} />
       <Header colors={['#FF655B', '#FF5864', '#FD297B']}>
-        <TextHeader>로그인</TextHeader>
+        <Text color={'#fff'} fontWeight={'bold'} fontSize={'30px'}>
+          로그인
+        </Text>
       </Header>
       <Footer animation={'fadeInUpBig'}>
-        <TextFooter marginTop={'0px'}>아이디</TextFooter>
-        <Action>
+        <Text color={'#05375a'} fontSize={'18px'} marginTop={'0px'}>
+          아이디
+        </Text>
+        <View
+          flexDirection={'row'}
+          marginTop={'10px'}
+          borderBottomWidth={'1px'}
+          borderBottomColor={'#f2f2f2'}
+          paddingBottom={'5px'}>
           <FontAwesome name={'user-o'} color={'#FF655B'} size={20} />
           <TextInput
             placeholder={'아이디를 입력해주세요.'}
             platform={Platform.OS}
             autoCapitalize={'none'}
             onChangeText={(value: string) => textInputChange(value)}
-            flex={1}
             marginTopAndroid={'-12px'}
             marginTopIOS={'0px'}
             color={'#05375a'}
@@ -186,9 +149,16 @@ const Login = ({navigation}: IProps) => {
               <Feather name={'check-circle'} color={'green'} size={20} />
             </Animatable.View>
           ) : null}
-        </Action>
-        <TextFooter marginTop={'35px'}>비밀번호</TextFooter>
-        <Action>
+        </View>
+        <Text color={'#05375a'} fontSize={'18px'} marginTop={'35px'}>
+          비밀번호
+        </Text>
+        <View
+          flexDirection={'row'}
+          marginTop={'10px'}
+          borderBottomWidth={'1px'}
+          borderBottomColor={'#f2f2f2'}
+          paddingBottom={'5px'}>
           <FontAwesome name={'lock'} color={'#FF655B'} size={20} />
           <TextInput
             placeholder={'비밀번호를 입력해주세요.'}
@@ -210,21 +180,35 @@ const Login = ({navigation}: IProps) => {
               <Feather name={'eye'} color={'grey'} size={20} />
             )}
           </TouchableOpacity>
-        </Action>
+        </View>
 
-        <ButtonView>
+        <View
+          marginTop={'50px'}
+          alignItems={'center'}
+          justifyContent={'flex-start'}
+          borderBottomColor={'#f2f2f2'}
+          borderBottomWidth={'1px'}>
           <LogInLinearGradient colors={['#FF655B', '#FF5864', '#FD297B']}>
-            <LoginText onPress={onClickLogin}>로그인</LoginText>
+            <Text
+              fontSize={'18px'}
+              fontWeight={'bold'}
+              color={'#fff'}
+              onPress={onClickLogin}>
+              로그인
+            </Text>
           </LogInLinearGradient>
           <SignUpTouchableOpacity>
-            <SignUpText onPress={() => navigation.navigate('SignUp')}>
+            <Text
+              fontSize={'18px'}
+              fontWeight={'bold'}
+              color={'#ff655b'}
+              onPress={() => navigation.navigate('SignUp')}>
               회원가입
-            </SignUpText>
+            </Text>
           </SignUpTouchableOpacity>
-        </ButtonView>
+        </View>
       </Footer>
-    </ViewContainer>
+    </View>
   );
 };
-
 export default Login;

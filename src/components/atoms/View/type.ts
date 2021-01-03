@@ -18,5 +18,6 @@ export interface IStyle {
   paddingBottom?: string;
   alignItems?: string;
   justifyContent?: string;
-  height?:number;
+  height?: string;
+  width?: string;
 }

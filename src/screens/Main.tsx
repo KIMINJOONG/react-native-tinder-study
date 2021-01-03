@@ -1,6 +1,5 @@
 import React from 'react';
 import View from '../components/atoms/View';
-import {Text} from 'react-native';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -14,7 +13,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const Main = () => {
   return (
-    <View>
+    <View flex={1}>
       <Tab.Navigator
         initialRouteName="Home"
         tabBarOptions={{

@@ -1,5 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-// import View from '../components/atoms/View';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadUsersAction, removeUserCardAction} from '../actions/user/action';
 import {RootState} from '../reducers';

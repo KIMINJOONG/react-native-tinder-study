@@ -25,7 +25,7 @@ const Home: FunctionComponent<StackScreenProps<any, any>> = ({navigation}) => {
       colors={['#FF655B', '#FF5864', '#FD297B']}
       flex={1}
       flexDirection={'column'}
-      padding={'30px'}>
+      padding={30}>
       <View
         flex={1}
         justifyContent={'center'}

@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Platform, TouchableOpacity, StatusBar, Alert} from 'react-native';
 import styled from 'styled-components/native';
 import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -12,17 +11,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {loginAction} from '../actions/user/action';
 import {RootState} from '../reducers';
 import Text from '../components/atoms/Text';
+import LinearGradientAtom from '../components/atoms/LinearGradient';
+import AnimatableViewAtom from '../components/atoms/AnimatableView';
 
 interface IProps {
   navigation: StackNavigationProp<any, 'Login'>;
 }
-
-const Header = styled(LinearGradient)`
-  flex: 1;
-  justify-content: flex-end;
-  padding-horizontal: 20px;
-  padding-bottom: 50px;
-`;
 
 const Footer = styled(Animatable.View)`
   flex: 3;
@@ -31,14 +25,6 @@ const Footer = styled(Animatable.View)`
   border-top-right-radius: 30px;
   padding-horizontal: 20px;
   padding-vertical: 30px;
-`;
-
-const LogInLinearGradient = styled(LinearGradient)`
-  width: 100%;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
 `;
 
 const SignUpTouchableOpacity = styled.TouchableOpacity`
@@ -116,12 +102,24 @@ const Login = ({navigation}: IProps) => {
   return (
     <View flex={1} backgroundColor={'#fd297b'}>
       <StatusBar backgroundColor={'#009387'} barStyle={'light-content'} />
-      <Header colors={['#FF655B', '#FF5864', '#FD297B']}>
+      <LinearGradientAtom
+        colors={['#FF655B', '#FF5864', '#FD297B']}
+        flex={1}
+        justifyContent={'flex-end'}
+        paddingHorizontal={'20px'}
+        paddingBottom={'50px'}>
         <Text color={'#fff'} fontWeight={'bold'} fontSize={'30px'}>
           로그인
         </Text>
-      </Header>
-      <Footer animation={'fadeInUpBig'}>
+      </LinearGradientAtom>
+      <AnimatableViewAtom
+        animation={'fadeInUpBig'}
+        flex={3}
+        backgroundColor={'#fff'}
+        borderTopLeftRadius={30}
+        borderTopRightRadius={30}
+        paddingHorizontal={20}
+        paddingVertical={30}>
         <Text color={'#05375a'} fontSize={'18px'} marginTop={'0px'}>
           아이디
         </Text>
@@ -188,7 +186,13 @@ const Login = ({navigation}: IProps) => {
           justifyContent={'flex-start'}
           borderBottomColor={'#f2f2f2'}
           borderBottomWidth={'1px'}>
-          <LogInLinearGradient colors={['#FF655B', '#FF5864', '#FD297B']}>
+          <LinearGradientAtom
+            colors={['#FF655B', '#FF5864', '#FD297B']}
+            width={'100%'}
+            height={'50px'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            borderRadius={'10px'}>
             <Text
               fontSize={'18px'}
               fontWeight={'bold'}
@@ -196,7 +200,7 @@ const Login = ({navigation}: IProps) => {
               onPress={onClickLogin}>
               로그인
             </Text>
-          </LogInLinearGradient>
+          </LinearGradientAtom>
           <SignUpTouchableOpacity>
             <Text
               fontSize={'18px'}
@@ -207,7 +211,7 @@ const Login = ({navigation}: IProps) => {
             </Text>
           </SignUpTouchableOpacity>
         </View>
-      </Footer>
+      </AnimatableViewAtom>
     </View>
   );
 };

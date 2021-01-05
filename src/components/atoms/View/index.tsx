@@ -13,6 +13,8 @@ const ViewContainer = styled.View`
   ${(props: IStyle) =>
     props.marginTop !== undefined && `margin-top: ${props.marginTop}`};
   ${(props: IStyle) =>
+    props.marginBottom !== undefined && `margin-bottom: ${props.marginBottom}`};
+  ${(props: IStyle) =>
     props.borderBottomWidth !== undefined &&
     `border-bottom-width: ${props.borderBottomWidth}`};
   ${(props: IStyle) =>
@@ -26,6 +28,8 @@ const ViewContainer = styled.View`
     `justify-content: ${props.justifyContent}`};
   ${(props: IStyle) =>
     props.alignItems !== undefined && `align-items: ${props.alignItems}`};
+  ${(props: IStyle) =>
+    props.alignContent !== undefined && `align-content: ${props.alignContent}`};
 `;
 
 const View = ({
@@ -45,6 +49,8 @@ const View = ({
   justifyContent,
   height,
   width,
+  alignContent,
+  marginBottom,
 }: IProps) => {
   return (
     <ViewContainer
@@ -60,9 +66,11 @@ const View = ({
       borderBottomColor={borderBottomColor}
       paddingBottom={paddingBottom}
       alignItems={alignItems}
+      alignContent={alignContent}
       justifyContent={justifyContent}
       height={height}
-      width={width}>
+      width={width}
+      marginBottom={marginBottom}>
       {children}
     </ViewContainer>
   );

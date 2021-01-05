@@ -13,10 +13,12 @@ export interface IStyle {
   paddingHorizontal?: string;
   paddingVertical?: string;
   marginTop?: string;
+  marginBottom?:string;
   borderBottomWidth?: string;
   borderBottomColor?: string;
   paddingBottom?: string;
   alignItems?: string;
+  alignContent?: string;
   justifyContent?: string;
   height?: string;
   width?: string;

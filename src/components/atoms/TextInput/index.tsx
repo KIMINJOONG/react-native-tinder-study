@@ -3,14 +3,14 @@ import styled from 'styled-components/native';
 import {IProps, ITextInputStyleProps} from './type';
 
 const Input = styled.TextInput`
-  flex: ${(props: ITextInputStyleProps) =>
-    props.flex === undefined ? 1 : props.flex};
+  ${(props: ITextInputStyleProps) =>
+    props.flex !== undefined && `flex: ${props.flex}`};
   margin-top: ${(props: ITextInputStyleProps) =>
     props.platform === 'ios' ? props.marginTopIOS : props.marginTopAndroid};
-  color: ${(props: ITextInputStyleProps) =>
-    props.color === undefined ? '#fff' : props.color};
-  padding-left: ${(props: ITextInputStyleProps) =>
-    props.paddingLeft === undefined ? '0px' : props.paddingLeft};
+  ${(props: ITextInputStyleProps) =>
+    props.color !== undefined && `color: ${props.color}`};
+  ${(props: ITextInputStyleProps) =>
+    props.paddingLeft !== undefined && `padding-left: ${props.paddingLeft}`};
 `;
 
 const TextInput = ({

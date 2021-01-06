@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Platform, TouchableOpacity, StatusBar, Alert} from 'react-native';
+import {Platform, StatusBar, Alert} from 'react-native';
 import styled from 'styled-components/native';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -13,19 +13,11 @@ import {RootState} from '../reducers';
 import Text from '../components/atoms/Text';
 import LinearGradientAtom from '../components/atoms/LinearGradient';
 import AnimatableViewAtom from '../components/atoms/AnimatableView';
+import TouchableOpacityAtom from '../components/atoms/TouchableOpacity';
 
 interface IProps {
   navigation: StackNavigationProp<any, 'Login'>;
 }
-
-const Footer = styled(Animatable.View)`
-  flex: 3;
-  background-color: #fff;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  padding-horizontal: 20px;
-  padding-vertical: 30px;
-`;
 
 const SignUpTouchableOpacity = styled.TouchableOpacity`
   width: 100%;
@@ -171,13 +163,13 @@ const Login = ({navigation}: IProps) => {
             paddingLeft={'10px'}
             value={data.password}
           />
-          <TouchableOpacity onPress={updateSecureTextEntry}>
+          <TouchableOpacityAtom onPress={updateSecureTextEntry}>
             {data.secureTextEntry ? (
               <Feather name={'eye-off'} color={'grey'} size={20} />
             ) : (
               <Feather name={'eye'} color={'grey'} size={20} />
             )}
-          </TouchableOpacity>
+          </TouchableOpacityAtom>
         </View>
 
         <View
@@ -201,7 +193,15 @@ const Login = ({navigation}: IProps) => {
               로그인
             </Text>
           </LinearGradientAtom>
-          <SignUpTouchableOpacity>
+          <TouchableOpacityAtom
+            width={'100%'}
+            height={'50px'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            borderRadius={'10px'}
+            borderColor={'#ff655b'}
+            borderWidth={'1px'}
+            marginTop={'15px'}>
             <Text
               fontSize={'18px'}
               fontWeight={'bold'}
@@ -209,7 +209,7 @@ const Login = ({navigation}: IProps) => {
               onPress={() => navigation.navigate('SignUp')}>
               회원가입
             </Text>
-          </SignUpTouchableOpacity>
+          </TouchableOpacityAtom>
         </View>
       </AnimatableViewAtom>
     </View>

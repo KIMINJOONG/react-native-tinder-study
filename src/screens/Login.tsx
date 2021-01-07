@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Platform, StatusBar, Alert} from 'react-native';
-import styled from 'styled-components/native';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -18,17 +17,6 @@ import TouchableOpacityAtom from '../components/atoms/TouchableOpacity';
 interface IProps {
   navigation: StackNavigationProp<any, 'Login'>;
 }
-
-const SignUpTouchableOpacity = styled.TouchableOpacity`
-  width: 100%;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  border-color: #ff655b;
-  border-width: 1px;
-  margin-top: 15px;
-`;
 
 const Login = ({navigation}: IProps) => {
   const dispatch = useDispatch();

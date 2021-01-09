@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {loadUsersAction, removeUserCardAction} from '../actions/user/action';
 import {RootState} from '../reducers';
 import Card from './Card';
-import styled from 'styled-components/native';
 import Footer from './Footer';
 import {
   Animated,
@@ -12,12 +11,7 @@ import {
   Text,
 } from 'react-native';
 import {ACTION_OFFSET, CARD} from '../utils/constants';
-
-const Container = styled.View`
-  flex: 1;
-  background-color: #fafafa;
-  align-items: center;
-`;
+import View from '../components/atoms/View';
 
 const Choice = () => {
   const dispatch = useDispatch();
@@ -80,7 +74,7 @@ const Choice = () => {
   );
 
   return loadUsersDone && users && users.users.length > 0 ? (
-    <Container>
+    <View flex={1} backgroundColor={'#fafafa'} alignItems={'center'}>
       {users.users
         .map((user: any, index: number) => {
           const isFirst = index === 0;
@@ -100,11 +94,15 @@ const Choice = () => {
         })
         .reverse()}
       <Footer handleChoice={handleChoice} />
-    </Container>
+    </View>
   ) : (
-    <Container style={{justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      flex={1}
+      backgroundColor={'#fafafa'}
+      alignItems={'center'}
+      justifyContent={'center'}>
       <Text>유저끝</Text>
-    </Container>
+    </View>
   );
 };
 

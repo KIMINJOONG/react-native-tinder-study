@@ -12,4 +12,7 @@ export interface IStyle {
   fontSize?: string;
   fontWeight?: string;
   marginTop?: string;
+  position?:string;
+  bottom?:string;
+  left?:string;
 }

@@ -1,38 +1,13 @@
 import React, {useCallback} from 'react';
-import {Animated, Image, Text, View} from 'react-native';
+import {Animated, View} from 'react-native';
 import styled from 'styled-components/native';
 import {ACTION_OFFSET, CARD} from '../../utils/constants';
 import LinearGradient from 'react-native-linear-gradient';
 import LikeOrNot from '../LikeOrNot';
-
-const Container = styled(Animated.View)`
-  position: absolute;
-  top: 45px;
-`;
-
-const Img = styled.Image`
-  width: ${CARD.WIDTH}px;
-  height: ${CARD.HEIGHT}px;
-  border-radius: ${CARD.BORDER_RADIUS}px;
-`;
-
-const Name = styled.Text`
-  position: absolute;
-  bottom: 22px;
-  left: 22px;
-  font-size: 36px;
-  font-weight: bold;
-  color: #fff;
-`;
-
-const Gradient = styled(LinearGradient)`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 160px;
-  border-radius: ${CARD.BORDER_RADIUS}px;
-`;
+import AnimatedViewAtom from '../../components/atoms/AnimatedView';
+import Image from '../../components/atoms/Image';
+import Text from '../../components/atoms/Text';
+import LinearGradientAtom from '../../components/atoms/LinearGradient';
 
 const LikeContainer = styled(Animated.View)`
   position: absolute;
@@ -84,13 +59,38 @@ const Card = ({user, isFirst, swipe, titleSign, ...rest}: any) => {
   }, [likeOpacity, nopeOpacity]);
 
   return (
-    <Container {...rest} style={isFirst && animatedCardStyle}>
-      <Img source={{uri: user.profile[0].src}} />
-      <Gradient colors={['transparent', 'rgba(0,0,0,0.9)']} />
-      <Name>{user.nickname}</Name>
+    <AnimatedViewAtom
+      top={'45px'}
+      position={'absolute'}
+      {...rest}
+      style={isFirst && animatedCardStyle}>
+      <Image
+        userProfile={user.profile[0].src}
+        width={`${CARD.WIDTH}px`}
+        height={`${CARD.HEIGHT}px`}
+        borderRadius={`${CARD.BORDER_RADIUS}px`}
+      />
+      <LinearGradientAtom
+        position={'absolute'}
+        bottom={'0'}
+        left={'0'}
+        right={'0'}
+        height={'160px'}
+        borderRadius={`${CARD.BORDER_RADIUS}px`}
+        colors={['transparent', 'rgba(0,0,0,0.9)']}
+      />
+      <Text
+        position={'absolute'}
+        bottom={'22px'}
+        left={'22px'}
+        fontSize={'36px'}
+        fontWeight={'bold'}
+        color={'#fff'}>
+        {user.nickname}
+      </Text>
 
       {isFirst && renderChoice()}
-    </Container>
+    </AnimatedViewAtom>
   );
 };
 

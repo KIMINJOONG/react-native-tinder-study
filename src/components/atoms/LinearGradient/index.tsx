@@ -9,6 +9,8 @@ const LinearGradientComponent = styled(LinearGradient)`
   ${(props: IStyle) => props.flex !== undefined && `flex: ${props.flex}`};
   ${(props: IStyle) => props.color !== undefined && `color: ${props.color}`};
   ${(props: IStyle) =>
+    props.position !== undefined && `position: ${props.position}`};
+  ${(props: IStyle) =>
     props.flexDirection !== undefined &&
     `flex-direction: ${props.flexDirection}`};
   ${(props: IStyle) =>
@@ -31,6 +33,9 @@ const LinearGradientComponent = styled(LinearGradient)`
     props.borderWidth !== undefined && `border-width: ${props.borderWidth}`};
   ${(props: IStyle) =>
     props.marginTop !== undefined && `margin-top: ${props.marginTop}`};
+  ${(props: IStyle) => props.bottom !== undefined && `bottom: ${props.bottom}`};
+  ${(props: IStyle) => props.right !== undefined && `right: ${props.right}`};
+  ${(props: IStyle) => props.left !== undefined && `left: ${props.left}`};
 `;
 
 const LinearGradientAtom = ({
@@ -49,6 +54,10 @@ const LinearGradientAtom = ({
   padding,
   paddingBottom,
   paddingHorizontal,
+  position,
+  bottom,
+  left,
+  right,
 }: IProps) => {
   return (
     <LinearGradientComponent
@@ -65,7 +74,11 @@ const LinearGradientAtom = ({
       paddingHorizontal={paddingHorizontal}
       borderRadius={borderRadius}
       borderColor={borderColor}
-      marginTop={marginTop}>
+      marginTop={marginTop}
+      position={position}
+      bottom={bottom}
+      left={left}
+      right={right}>
       {children}
     </LinearGradientComponent>
   );

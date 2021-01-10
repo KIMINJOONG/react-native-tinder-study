@@ -5,7 +5,6 @@ export interface IProps extends IStyle {
   animation: string;
   isFirst: boolean;
   animatedCardStyle: any;
-  rest: any;
 }
 
 export interface IStyle {

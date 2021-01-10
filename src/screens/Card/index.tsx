@@ -62,8 +62,9 @@ const Card = ({user, isFirst, swipe, titleSign, ...rest}: any) => {
     <AnimatedViewAtom
       top={'45px'}
       position={'absolute'}
-      {...rest}
-      style={isFirst && animatedCardStyle}>
+      isFirst={isFirst}
+      animatedCardStyle={animatedCardStyle}
+      {...rest}>
       <Image
         userProfile={user.profile[0].src}
         width={`${CARD.WIDTH}px`}

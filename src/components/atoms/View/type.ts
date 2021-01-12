@@ -22,4 +22,7 @@ export interface IStyle {
   justifyContent?: string;
   height?: string;
   width?: string;
+  borderWidth?: string;
+  borderRadius?: string;
+  borderColor?: string;
 }

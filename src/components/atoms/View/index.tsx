@@ -30,6 +30,15 @@ const ViewContainer = styled.View`
     props.alignItems !== undefined && `align-items: ${props.alignItems}`};
   ${(props: IStyle) =>
     props.alignContent !== undefined && `align-content: ${props.alignContent}`};
+  ${(props: IStyle) =>
+    props.borderWidth !== undefined && `border-width: ${props.borderWidth}`};
+  ${(props: IStyle) =>
+    props.borderRadius !== undefined && `border-radius: ${props.borderRadius}`};
+  ${(props: IStyle) =>
+    props.borderColor !== undefined && `border-color: ${props.borderColor}`};
+  ${(props: IStyle) =>
+    props.paddingHorizontal !== undefined &&
+    `padding-horizontal: ${props.paddingHorizontal}`};
 `;
 
 const View = ({
@@ -51,6 +60,9 @@ const View = ({
   width,
   alignContent,
   marginBottom,
+  borderRadius,
+  borderWidth,
+  borderColor,
 }: IProps) => {
   return (
     <ViewContainer
@@ -70,7 +82,10 @@ const View = ({
       justifyContent={justifyContent}
       height={height}
       width={width}
-      marginBottom={marginBottom}>
+      marginBottom={marginBottom}
+      borderRadius={borderRadius}
+      borderWidth={borderWidth}
+      borderColor={borderColor}>
       {children}
     </ViewContainer>
   );

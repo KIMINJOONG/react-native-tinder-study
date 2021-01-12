@@ -15,4 +15,6 @@ export interface IStyle {
   position?:string;
   bottom?:string;
   left?:string;
+  textTransform?: string;
+  letterSpacing?: string;
 }

@@ -16,6 +16,12 @@ const TextStyled = styled.Text`
     props.position !== undefined && `position: ${props.position}`};
   ${(props: IStyle) => props.bottom !== undefined && `bottom: ${props.bottom}`};
   ${(props: IStyle) => props.left !== undefined && `left: ${props.left}`};
+  ${(props: IStyle) =>
+    props.textTransform !== undefined &&
+    `text-transform: ${props.textTransform}`};
+  ${(props: IStyle) =>
+    props.letterSpacing !== undefined &&
+    `letter-spacing: ${props.letterSpacing}`};
 `;
 
 const Text = ({
@@ -28,6 +34,8 @@ const Text = ({
   position,
   bottom,
   left,
+  letterSpacing,
+  textTransform,
   onPress,
 }: IProps) => {
   return (
@@ -40,7 +48,9 @@ const Text = ({
       marginTop={marginTop}
       position={position}
       bottom={bottom}
-      left={left}>
+      left={left}
+      textTransform={textTransform}
+      letterSpacing={letterSpacing}>
       {children}
     </TextStyled>
   );
